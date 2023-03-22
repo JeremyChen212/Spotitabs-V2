@@ -1,17 +1,19 @@
 import '@component/styles/globals.css'
 import type { AppProps } from 'next/app'
 import { SessionProvider } from "next-auth/react";
-import { SpotifyProvider } from "../context/SpotifyContext";
+import { SpotifyContextProvider } from "../context/SpotifyContext";
 import { RecoilRoot } from "recoil"
 import { useRouter } from "next/router";
+import {useSession, signIn, signOut} from 'next-auth/react';
+
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
-
+  
   return (
     <SessionProvider session={pageProps.session}>
       <RecoilRoot>
-      <SpotifyProvider>
+      <SpotifyContextProvider>
           {router.pathname === "/login" ? (
             <Component {...pageProps} />
           ) : (
@@ -22,8 +24,9 @@ export default function App({ Component, pageProps }: AppProps) {
               {/* <PlayerTwo /> */}
             </>
           )}
-      </SpotifyProvider>
+      </SpotifyContextProvider>
       </RecoilRoot>
     </SessionProvider>
   )
 }
+

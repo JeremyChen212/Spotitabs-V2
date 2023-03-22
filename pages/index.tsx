@@ -1,11 +1,21 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import { useState, useEffect} from 'react'
 import { Inter } from 'next/font/google'
 import styles from '@component/styles/Home.module.css'
+import { getProfile } from '../lib/spotify'
+import {useSession, signIn, signOut} from 'next-auth/react';
+import { useSpotify } from '../context/SpotifyContext'
+import PlaylistDashboard from '@component/components/PlaylistDashboard'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const {data: session} = useSession();
+  const [list, setList] = useState([]);
+  console.log(session)
+    
+  if(session){
   return (
     <>
       <Head>
@@ -15,8 +25,17 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <h1 className="hover:scale-90">This is a Next App with TailwindCSS</h1>
+        <h1 className="text-3xl my-10">Welcome {session?.token?.name}</h1>
+        <PlaylistDashboard></PlaylistDashboard>
       </main>
+
     </>
   )
+} else {
+  return (
+    <div>
+      agoeig
+    </div>
+  )
+}
 }

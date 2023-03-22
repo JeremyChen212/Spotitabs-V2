@@ -15,13 +15,11 @@ const inactiveLink = "bg-transparent text-gray";
 
 export default function PlaylistDashboard() {
   const router = useRouter();
-  const {isActive, setIsActive} = useRecoilState(isActiveState);
   const { playlists, fetchPlaylists } = useSpotify();
   const { playlistComponent, setPlaylistComponent } = useState();
 
   useEffect(() => {
     fetchPlaylists();
-    console.log(isActive)
     console.log(playlists)
   }, []);
 
@@ -29,7 +27,7 @@ export default function PlaylistDashboard() {
     return null;
   }
     return (
-      <div className={'grid grid-cols-1 gap-[1.5rem] max-w-[50rem] sm:grid-cols-3 '}>
+      <div className={'grid grid-cols-1 gap-[1.5rem] max-w-[50rem] sm:grid-cols-3 m-auto'}>
           {playlists.map((playlist, index) => (
                 //         <Link key={playlist.id} href={`/playlist/${playlist.id}`}>
               <Link key={playlists.name} href={`/playlist/${playlist.id}`} onClick={() => setIsActive(true)} >
