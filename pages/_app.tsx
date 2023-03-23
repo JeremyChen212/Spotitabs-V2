@@ -5,7 +5,7 @@ import { SpotifyContextProvider } from "../context/SpotifyContext";
 import { RecoilRoot } from "recoil"
 import { useRouter } from "next/router";
 import {useSession, signIn, signOut} from 'next-auth/react';
-
+import Header from '@component/components/Header'
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -14,6 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <SessionProvider session={pageProps.session}>
       <RecoilRoot>
       <SpotifyContextProvider>
+        <Header />
           {router.pathname === "/login" ? (
             <Component {...pageProps} />
           ) : (

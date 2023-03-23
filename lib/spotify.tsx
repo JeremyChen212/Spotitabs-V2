@@ -10,7 +10,7 @@ const getAccessToken = async (refresh_token) => {
       headers: {
         Authorization: `Basic ${basic}`,
         'Content-Type': 'application/x-www-form-urlencoded',
-      },0
+      },
       body: new URLSearchParams({
         grant_type: 'refresh_token',
         refresh_token,
