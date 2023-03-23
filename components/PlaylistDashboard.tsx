@@ -17,15 +17,25 @@ export default function PlaylistDashboard() {
   const router = useRouter();
   const { playlists, fetchPlaylists } = useSpotify();
   const { playlistComponent, setPlaylistComponent } = useState();
-
+  const [spinner, setSpinner] = useState(true)
   useEffect(() => {
     fetchPlaylists();
     console.log(playlists)
-  }, []);
+    if(playlists.length > 0) {
+      setSpinner(false)
+    } 
+  }, [playlists]);
 
   if (router.pathname === "/login") {
     return null;
   }
+  if(spinner === true) {
+    return (
+      <div className="m-auto w-fit mt-10">
+        loading...
+      </div>
+    )
+  } else {
     return (
       <div className={'grid grid-cols-1 gap-[1.5rem] max-w-[50rem] sm:grid-cols-3 m-auto'}>
           {playlists.map((playlist, index) => (
@@ -39,4 +49,5 @@ export default function PlaylistDashboard() {
           ))}
       </div>
     )
+  }
   }
